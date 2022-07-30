@@ -51,6 +51,7 @@ const CenterMenu = styled.div`
   align-items: center;
   width: 100%;
   padding: 12px;
+ 
 `;
 const P1 = styled.div`
   display: flex;
