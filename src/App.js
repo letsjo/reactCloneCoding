@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import Basket from "./pages/Basket";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import {GrFormClose} from "react-icons/gr"
+import { GrFormClose } from "react-icons/gr";
 
 function App() {
   const [ModalOpen, SetModalOpen] = useState(false);
@@ -28,7 +28,10 @@ function App() {
 
   return (
     <AppBody>
-      <Navbar SetModalOpen={SetModalOpen} SetModalRequiredName={SetModalRequiredName}/>
+      <Navbar
+        SetModalOpen={SetModalOpen}
+        SetModalRequiredName={SetModalRequiredName}
+      />
       <MainBody>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -40,7 +43,7 @@ function App() {
           <Modal>
             <Overlay></Overlay>
             <ModalBody>
-            {ModalRequiredName == "login" ? (
+              {ModalRequiredName == "login" ? (
                 <ModalContent>
                   <Login SetModalOpen={SetModalOpen} />
                   <CloseModal>
@@ -52,7 +55,7 @@ function App() {
                     />
                   </CloseModal>
                 </ModalContent>
-              ): ModalRequiredName == "signup" ? (
+              ) : ModalRequiredName == "signup" ? (
                 <ModalContent>
                   <Signup SetModalOpen={SetModalOpen} />
                   <CloseModal>
@@ -64,9 +67,8 @@ function App() {
                     />
                   </CloseModal>
                 </ModalContent>
-              ): (
-                <>
-                </>
+              ) : (
+                <></>
               )}
             </ModalBody>
           </Modal>
@@ -108,21 +110,41 @@ const CloseModal = styled.div`
   top: 10px;
   right: 10px;
   padding: 5px 7px;
+  &:hover{color:"red"}
 `;
 ////// ModalContent 여기가 흰 부분 입니다.
 const ModalContent = styled.div`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: white;
-  padding: 14px 28px;
-  border-radius: 10px;
-  min-width: 500px;
+  padding: 34px 24px 24px;
+  border-radius: 5px;
+  min-width: 320px;
   min-height: 500px;
-  max-height: 800px;
+  width: 10%;
+ 
+  min-height: 20%;
+  @media screen and (max-width: 768px) {
+    align-items: center;
+    height: 100%;
+    width:100%;
+  }
 `;
+
+// const MainBody = styled.div`
+// display: flex;
+// flex-direction: column;
+// align-items: flex-start;
+// margin-top: 100px;
+// width: 100%;
+// height: auto;
+// min-height: 100%;
+// @media screen and (max-width: 990px) {
+// align-items: center;
+// }
 
 // 모달 컴포넌트 종료
 
