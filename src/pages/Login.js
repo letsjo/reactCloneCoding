@@ -9,16 +9,16 @@ const Login = () => {
         <LoginBox>
           <Input type="text" placeholder="이메일" />
           <Input type="password" placeholder="비밀번호" />
-          <Button>로그인</Button>
+          <ButtonA>로그인</ButtonA>
         </LoginBox>
         <LoginBox>
           <LoginZone>
             <p>회원가입</p>
             <p>아이디 비밀번호 찾기</p>
           </LoginZone>
-          <Input type="password" placeholder="이름을(를) 입력하세요" />
+          <p>또는</p>
         </LoginBox>
-        <Button>비회원 주문배송 조회</Button>
+        <ButtonB>비회원 주문배송 조회</ButtonB>
       </SignupArea>
     </SignupFrame>
   );
@@ -52,7 +52,7 @@ const LoginZone = styled.div`
   flex-direction: row;
   justify-content:space-between;
   display: flex;
-  font-size: 13px;
+  font-size: 0.6rem;
   width: 100%;
 
 `;
@@ -80,8 +80,20 @@ const H = styled.div`
   padding: 1.5rem;
 
 `;
-const Button = styled.button`
-  background-color: #4f4f4f;
+const ButtonA = styled.button`
+  background-color: transparent;
+  width: 100%;
+  height: auto;
+  border: 0.1rem solid #e5e7eb;
+  padding: 12px 25px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 25px;
+  cursor: pointer;
+`;
+
+const ButtonB = styled.button`
+  background-color: #8393a7;
   width: 100%;
   height: auto;
   border: none;
@@ -91,7 +103,6 @@ const Button = styled.button`
   font-size: 0.9rem;
   margin-top: 25px;
   cursor: pointer;
-
 `;
 
 // const H1 = styled.div`
