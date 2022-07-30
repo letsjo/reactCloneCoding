@@ -1,12 +1,16 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import ItemOptionInDetail from "../components/ItemOptionInDetail";
 import ItemTotalPriceInDetail from "../components/ItemTotalPriceInDetail";
+import NumberInCircle from "../components/NumberInCircle";
+import CommentList from "../components/CommentList";
 
-const ItemDetail = ({ eachPrice = 9000 }) => {
+const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
   const [count, setCount] = React.useState(1);
   const [totalPrice, setTotalPrice] = React.useState(0);
+  const [selectedBottomMenu, setSelectedBottomMenu] =
+    React.useState("commentList");
   return (
     <ItemDetailFrame>
       <ItemDetailArea>
@@ -71,7 +75,33 @@ const ItemDetail = ({ eachPrice = 9000 }) => {
             </ItemDetailTopRightSection>
           </ItemDetailTopRightZone>
         </ItemDetailTopBox>
-        <ItemDetailBottomBox>하단</ItemDetailBottomBox>
+        <ItemDetailBottomBox>
+          <ItemDetailBottomMenuList>
+            <ItemDetailBottomMenu
+              onClick={(e) => setSelectedBottomMenu("detailInfo")}
+              selected={selectedBottomMenu == "detailInfo" ? true : false}
+            >
+              상세정보
+            </ItemDetailBottomMenu>
+            /
+            <ItemDetailBottomMenu
+              onClick={(e) => setSelectedBottomMenu("commentList")}
+              selected={selectedBottomMenu == "commentList" ? true : false}
+            >
+              구매평
+              <NumberInCircle number={commentList.length} />
+            </ItemDetailBottomMenu>
+            /
+            <ItemDetailBottomMenu
+              onClick={(e) => setSelectedBottomMenu("QAList")}
+              selected={selectedBottomMenu == "QAList" ? true : false}
+            >
+              Q&A
+              <NumberInCircle number={QAList.length} />
+            </ItemDetailBottomMenu>
+          </ItemDetailBottomMenuList>
+        </ItemDetailBottomBox>
+        {selectedBottomMenu=="commentList"?(<CommentList/>):(<></>)}
       </ItemDetailArea>
     </ItemDetailFrame>
   );
@@ -163,7 +193,7 @@ const ItemDetailTopRightSection = styled.div`
   @media screen and (max-width: 990px) {
     padding-left: 0;
     header {
-        margin-top: 1rem;
+      margin-top: 1rem;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -185,6 +215,9 @@ const ItemDetailContextView = styled.div`
 
 const ItemDetailBottomBox = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ItemDetailOptionSection = styled.div`
@@ -216,6 +249,36 @@ const ItemDetailButtonSection = styled.div`
     background-color: rgba(53, 53, 53, 1);
     border: rgba(53, 53, 53, 1);
   }
+`;
+
+const ItemDetailBottomMenuList = styled.div`
+  display: flex;
+  font-size: 11px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 2rem;
+  div {
+    margin-left: 0.5rem;
+  }
+`;
+
+const ItemDetailBottomMenu = styled.div`
+  ${({ selected }) => {
+    return css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: ${selected ? "#4f4f4f" : "rgba(79,79,79,0.3)"};
+      &:hover{
+        color: #4f4f4f;
+      }
+    `;
+  }}
 `;
 
 export default ItemDetail;

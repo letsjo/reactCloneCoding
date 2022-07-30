@@ -5,9 +5,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Navbar = ({
-  ModalOpen,
   SetModalOpen,
-  ModalRequiredName,
   SetModalRequiredName,
 }) => {
   const ModalLogin = () => {
@@ -23,7 +21,7 @@ const Navbar = ({
   return (
     <NaviFrame>
       <Logo>
-        <h2>Beesket Studio</h2>
+        <a href="/"><h2>Beesket Studio</h2></a>
       </Logo>
       <CenterMenu>
         <P1>ABOUT US</P1>
@@ -60,6 +58,15 @@ const Logo = styled.div`
   font-size: 15px;
   margin-left: 40px;
   width: 100%;
+
+  a{
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover{
+    text-decoration: underline;
+  }
 `;
 
 const CenterMenu = styled.div`
