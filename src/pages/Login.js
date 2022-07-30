@@ -4,10 +4,10 @@ import styled from "styled-components";
 const Login = () => {
   return (
     <SignupFrame>
+    <H>로그인</H>
       <SignupArea>
-        <H>로그인</H>
         <LoginBox>
-          <Input type="text" placeholder="이메일" />
+          <Input type="text" placeholder="이메일" className="pw"/>
           <Input type="password" placeholder="비밀번호" />
           <ButtonA>로그인</ButtonA>
         </LoginBox>
@@ -17,8 +17,8 @@ const Login = () => {
             <p>아이디 비밀번호 찾기</p>
           </LoginZone>
           <p>또는</p>
-        </LoginBox>
         <ButtonB>비회원 주문배송 조회</ButtonB>
+        </LoginBox>
       </SignupArea>
     </SignupFrame>
   );
@@ -38,13 +38,17 @@ const SignupArea = styled.div`
   flex-direction: column;
   align-items:center;
   width: 100%;
+  height: 100%;
 `;
 
 const LoginBox = styled.div`
   height: auto;
-  width: 300px;
+  width: 100%;
   flex-direction: column;
   display: flex;
+  .pw{
+    border-bottom: transparent;
+  }
   
 `;
 
@@ -74,10 +78,11 @@ const p = styled.div`
   margin: 20px 0 30px;
 `;
 const H = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   display: flex;
   padding: 1.5rem;
+  margin: 0;
 
 `;
 const ButtonA = styled.button`
