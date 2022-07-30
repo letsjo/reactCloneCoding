@@ -39,7 +39,7 @@ const HomeFrame = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  max-width: 1875px;
+  max-width: 2400px;
   position: relative;
   top: 0;
   width: 100%;
@@ -54,7 +54,7 @@ const HomeCategoryArea = styled.div`
   height: auto;
   width: 180px;
   max-width: 180px;
-  margin-left: 3rem;
+  margin-left: 5rem;
   @media screen and (max-width: 990px) {
     width: 100%;
     max-width: none;
@@ -70,7 +70,7 @@ const HomeArea = styled.div`
   justify-content: center;
   height: auto;
   width: 100%;
-  max-width: 1600px;
+  max-width: 2000px;
   @media screen and (max-width: 990px) {
     width: 100%;
   }

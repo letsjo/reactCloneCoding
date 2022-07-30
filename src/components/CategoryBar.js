@@ -6,15 +6,15 @@ const CategoryBar = () => {
   return (
     <CategoryFrame>
       <CategoryText to="/">
-        <div>All</div>
+        <div>ALL</div>
       </CategoryText>
-      <CategoryText to="/1">
+      <CategoryText to="/NOTES">
         <div>NOTES</div>
       </CategoryText>
-      <CategoryText to="/2">
+      <CategoryText to="/PAPER&PRINT">
         <div>PAPER & PRINT</div>
       </CategoryText>
-      <CategoryText to="/3">
+      <CategoryText to="/BAG&POUCH">
         <div>BAG & POUCH</div>
       </CategoryText>
     </CategoryFrame>

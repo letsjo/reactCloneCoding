@@ -57,6 +57,8 @@ const FooterLeftMenuArea = styled.div`
   margin-left: 5rem;
   a {
     margin-bottom: 0.5rem;
+
+    color: black;
     text-decoration: none;
   }
   a:hover {

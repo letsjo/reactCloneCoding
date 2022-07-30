@@ -32,14 +32,14 @@ const ItemCardInList = () => {
 const ItemCardFrame = styled.div`
   max-width: calc(100% / 3);
   width: 100%;
-  margin-bottom: 1rem;
-  /* @media screen and (max-width: 1000px) {
-        width: calc(100% / 2);
-    } */
+  margin: 0 0 40px;
+  @media screen and (max-width: 500px) {
+        max-width: calc(100% / 2);
+    }
 `;
 
 const CardImageArea = styled.div`
-  margin: 0px 3px;
+  margin: 0px 7.5px;
   position: relative;
   cursor: pointer;
   img {
@@ -63,7 +63,8 @@ const CardImageArea = styled.div`
 
 const CardItemInfoArea = styled.div`
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
+  padding: 20px 0;
   p {
     font-weight: bold;
     margin: 0.5rem 0 0 0;
@@ -73,6 +74,11 @@ const CardItemInfoArea = styled.div`
 const ItemTitleBox = styled(Link)`
   margin: 0px;
   text-decoration: none;
+  color: black;
+  font-size: 14px;
+  a{
+    
+  }
 `;
 
 export default ItemCardInList;
