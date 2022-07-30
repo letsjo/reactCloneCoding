@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import ItemDetail from "./pages/ItemDetail";
 import Footer from "./components/Footer";
 import Basket from "./pages/Basket";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/:category" element={<Home />} />
           <Route path="/detail/:id" element={<ItemDetail />} />
           <Route path="/basket" element={<Basket />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
       </MainBody>
