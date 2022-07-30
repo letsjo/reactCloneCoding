@@ -14,11 +14,12 @@ function App() {
       <MainBody>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/detail" element={<ItemDetail />} />
+          <Route path="/:category" element={<Home />} />
+          <Route path="/detail/:id" element={<ItemDetail />} />
           <Route path="/basket" element={<Basket />} />
         </Routes>
+        <Footer />
       </MainBody>
-      <Footer />
     </AppBody>
   );
 }
@@ -31,11 +32,14 @@ const AppBody = styled.div`
 const MainBody = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 100px;
+  align-items: flex-start;
+  margin-top: 100px;
   width: 100%;
   height: auto;
+  min-height: 100%;
+  @media screen and (max-width: 990px) {
+    align-items: center;
+  }
 `;
 
 export default App;
