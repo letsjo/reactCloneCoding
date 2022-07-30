@@ -4,7 +4,22 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import styled from "styled-components";
 
-const Navbar = () => {
+const Navbar = ({
+  ModalOpen,
+  SetModalOpen,
+  ModalRequiredName,
+  SetModalRequiredName,
+}) => {
+  const ModalLogin = () => {
+    SetModalOpen(true);
+    SetModalRequiredName("login");
+  };
+
+  const ModalSignup = () => {
+    SetModalOpen(true);
+    SetModalRequiredName("signup");
+  };
+
   return (
     <NaviFrame>
       <Logo>
@@ -17,11 +32,14 @@ const Navbar = () => {
       </CenterMenu>
       <EndMenu>
         <P2>CART</P2>
-        <P2>/</P2>
-        <P2>MY PAGE</P2>
-        <P2>/</P2>
-        <P2><FontAwesomeIcon icon={faSearch}/></P2>
-        
+        <div>/</div>
+        <P2 onClick={ModalLogin}>LOGIN</P2>
+        <div>/</div>
+        <P2 onClick={ModalSignup}>JOIN</P2>
+        <div>/</div>
+        <P2>
+          <FontAwesomeIcon icon={faSearch} />
+        </P2>
       </EndMenu>
     </NaviFrame>
   );
@@ -51,7 +69,6 @@ const CenterMenu = styled.div`
   align-items: center;
   width: 100%;
   padding: 12px;
- 
 `;
 const P1 = styled.div`
   display: flex;
@@ -67,6 +84,7 @@ const P2 = styled.div`
   justify-content: flex-end;
   padding: 7px;
   font-size: 12px;
+  cursor: pointer;
 `;
 
 const EndMenu = styled.div`
