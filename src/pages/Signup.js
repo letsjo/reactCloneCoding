@@ -13,8 +13,8 @@ const Signup = ({SetModalOpen}) => {
           <Input type="password" placeholder="비밀번호 확인" />
           <P>이름<BsDot size={20} color={"#1A6Dff"}></BsDot></P>
           <Input type="text" placeholder="이름을(를) 입력하세요" />
+          <Button>가입하기</Button>
           </LoginBox>
-        <Button>가입하기</Button>
       </SignupArea>
     </SignupFrame>
   );
@@ -39,7 +39,7 @@ const SignupArea = styled.div`
 
 const LoginBox = styled.div`
   height: auto;
-  width: 300px;
+  width: 100%;
   flex-direction: column;
   display: flex;
   .pw{
@@ -57,7 +57,7 @@ const H = styled.div`
   font-size: 1.5rem;
   text-align: center;
   display: flex;
-  padding: 1.5rem;
+  padding: 1.3rem;
 `;
 const a = styled.div`
   text-align: center;

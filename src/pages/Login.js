@@ -4,21 +4,21 @@ import styled from "styled-components";
 const Login = () => {
   return (
     <SignupFrame>
+    <H>로그인</H>
       <SignupArea>
-        <H>로그인</H>
         <LoginBox>
-          <Input type="text" placeholder="이메일" />
+          <Input type="text" placeholder="이메일" className="pw"/>
           <Input type="password" placeholder="비밀번호" />
-          <Button>로그인</Button>
+          <ButtonA>로그인</ButtonA>
         </LoginBox>
         <LoginBox>
           <LoginZone>
             <p>회원가입</p>
             <p>아이디 비밀번호 찾기</p>
           </LoginZone>
-          <Input type="password" placeholder="이름을(를) 입력하세요" />
+          <p>또는</p>
+        <ButtonB>비회원 주문배송 조회</ButtonB>
         </LoginBox>
-        <Button>비회원 주문배송 조회</Button>
       </SignupArea>
     </SignupFrame>
   );
@@ -38,13 +38,17 @@ const SignupArea = styled.div`
   flex-direction: column;
   align-items:center;
   width: 100%;
+  height: 100%;
 `;
 
 const LoginBox = styled.div`
   height: auto;
-  width: 300px;
+  width: 100%;
   flex-direction: column;
   display: flex;
+  .pw{
+    border-bottom: transparent;
+  }
   
 `;
 
@@ -52,7 +56,7 @@ const LoginZone = styled.div`
   flex-direction: row;
   justify-content:space-between;
   display: flex;
-  font-size: 13px;
+  font-size: 0.6rem;
   width: 100%;
 
 `;
@@ -74,14 +78,27 @@ const p = styled.div`
   margin: 20px 0 30px;
 `;
 const H = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   display: flex;
   padding: 1.5rem;
+  margin: 0;
 
 `;
-const Button = styled.button`
-  background-color: #4f4f4f;
+const ButtonA = styled.button`
+  background-color: transparent;
+  width: 100%;
+  height: auto;
+  border: 0.1rem solid #e5e7eb;
+  padding: 12px 25px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 25px;
+  cursor: pointer;
+`;
+
+const ButtonB = styled.button`
+  background-color: #8393a7;
   width: 100%;
   height: auto;
   border: none;
@@ -91,7 +108,6 @@ const Button = styled.button`
   font-size: 0.9rem;
   margin-top: 25px;
   cursor: pointer;
-
 `;
 
 // const H1 = styled.div`
