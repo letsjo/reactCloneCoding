@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import OptionCounter from "./OptionCounter";
 
 const ItemOptionInDetail = ({ eachPrice, countArr, totalPriceArr }) => {
-  totalPriceArr.setTotalPrice(eachPrice * countArr.count);
+  useEffect(() => {
+    totalPriceArr.setTotalPrice(eachPrice * countArr.count);
+  }, [totalPriceArr]);
   return (
     <ItemDetailOptionFrame>
       <OptionTitleArea>수량</OptionTitleArea>
@@ -23,6 +25,9 @@ const ItemDetailOptionFrame = styled.div`
   margin-bottom: 10px;
   background-color: rgba(79, 79, 79, 0.03);
   font-size: 12px;
+  @media screen and (max-width: 500px) {
+    font-size: 10px;
+  }
 `;
 
 const DashedLine = styled.div`
@@ -43,6 +48,11 @@ const OptionMainArea = styled.div`
   justify-content: space-between;
   div {
     font-size: 15px;
+  }
+  @media screen and (max-width: 500px) {
+    div {
+      font-size: 12px;
+    }
   }
 `;
 

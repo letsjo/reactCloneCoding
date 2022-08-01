@@ -157,7 +157,7 @@ const MainBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 100px;
+  margin-top: 50px;
   width: 100%;
   height: auto;
   min-height: 100%;

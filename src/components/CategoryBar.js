@@ -35,6 +35,10 @@ const CategoryFrame = styled.div`
     min-width: none;
     gap: 0.5rem;
     flex-wrap: wrap;
+    font-size: 20px;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 14px;
   }
 `;
 

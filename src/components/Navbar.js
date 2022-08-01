@@ -3,11 +3,14 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({
   SetModalOpen,
   SetModalRequiredName,
 }) => {
+  const navigete = useNavigate();
+
   const ModalLogin = () => {
     SetModalOpen(true);
     SetModalRequiredName("login");
@@ -29,7 +32,7 @@ const Navbar = ({
         <P1>COMMUNITY</P1>
       </CenterMenu>
       <EndMenu>
-        <P2>CART</P2>
+        <P2 onClick={(e)=>navigete("/basket")}>CART</P2>
         <div>/</div>
         <P2 onClick={ModalLogin}>LOGIN</P2>
         <div>/</div>
@@ -101,6 +104,7 @@ const EndMenu = styled.div`
   align-items: center;
   margin-right: 40px;
   width: 100%;
+  gap: 0.5rem;
 `;
 
 export default Navbar;

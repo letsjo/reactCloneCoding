@@ -39,7 +39,7 @@ const HomeFrame = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  max-width: 2200px;
+  max-width: 2000px;
   position: relative;
   top: 0;
   width: 100%;
@@ -70,7 +70,7 @@ const HomeArea = styled.div`
   justify-content: center;
   height: auto;
   width: 100%;
-  max-width: 1800px;
+  max-width: 1660px;
   @media screen and (max-width: 990px) {
     width: 100%;
   }
