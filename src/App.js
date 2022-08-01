@@ -115,18 +115,16 @@ const CloseModal = styled.div`
 ////// ModalContent 여기가 흰 부분 입니다.
 const ModalContent = styled.div`
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
-  line-height: 1.4;
   background: white;
   padding: 34px 24px 24px;
   border-radius: 5px;
   min-width: 320px;
-  min-height: 500px;
+  min-height: 350px;
   width: 10%;
- 
-  min-height: 20%;
+
   @media screen and (max-width: 768px) {
     align-items: center;
     height: 100%;
