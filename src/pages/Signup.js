@@ -1,20 +1,46 @@
 import React from "react";
 import styled from "styled-components";
-import {BsDot} from "react-icons/bs"
+import { BsDot } from "react-icons/bs";
+import { useNavigate } from "react-router";
 
-const Signup = ({SetModalOpen}) => {
+const Signup = ({ SetModalOpen }) => {
+  const nevigate = useNavigate();
+  const goToLogin = () => {
+    nevigate("/login");
+  };
+
+  const RefEmail = React.useRef(null);
+  const Refpassword = React.useRef(null);
+  const RefPasswordCheck = React.useRef(null);
+  const RefName = React.useRef(null);
+
   return (
     <SignupFrame>
       <SignupArea>
         <H>회원가입</H>
         <LoginBox>
-          <Input type="text" placeholder="이메일" />
-          <Input type="password" placeholder="비밀번호" className="pw"/>
-          <Input type="password" placeholder="비밀번호 확인" />
-          <P>이름<BsDot size={20} color={"#1A6Dff"}></BsDot></P>
-          <Input type="text" placeholder="이름을(를) 입력하세요" />
-          <Button>가입하기</Button>
-          </LoginBox>
+          <Input type="text" placeholder="이메일" ref={RefEmail} />
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            ref={Refpassword}
+            className="pw"
+          />
+          <Input
+            type="password"
+            placeholder="비밀번호 확인"
+            ref={RefPasswordCheck}
+          />
+          <P>
+            이름<BsDot size={20} color={"#1A6Dff"}></BsDot>
+          </P>
+          <Input
+            type="text"
+            placeholder="이름을(를) 입력하세요"
+            ref={RefName}
+          />
+          <Button onClick={goToLogin}>가입하기</Button>
+        </LoginBox>
       </SignupArea>
     </SignupFrame>
   );
@@ -26,14 +52,13 @@ const SignupFrame = styled.div`
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
- 
 `;
 
 const SignupArea = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   width: 100%;
 `;
 
@@ -42,27 +67,23 @@ const LoginBox = styled.div`
   width: 100%;
   flex-direction: column;
   display: flex;
-  .pw{
+  .pw {
     border-top: transparent;
     border-bottom: transparent;
   }
-  `;
+`;
 
 const P = styled.div`
-  font-size: 14px;
+  font-size: 0.8px;
   width: 100%;
   margin: 1.5rem 0 0.5rem 0;
 `;
 const H = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
   text-align: center;
   display: flex;
-  padding: 1.3rem;
 `;
-const a = styled.div`
-  text-align: center;
-`;
-
 const Button = styled.button`
   background-color: #4f4f4f;
   width: 100%;
@@ -81,8 +102,8 @@ const Input = styled.input`
   border: 0.1px solid #e5e7eb;
   padding: 12px 16px;
   &:focus {
-        outline: none;}
-
+    outline: none;
+  }
 `;
 
 export default Signup;
