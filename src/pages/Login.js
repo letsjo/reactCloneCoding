@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Login = ({SetModalOpen}) => {
+const Login = ({ SetModalOpen }) => {
   return (
     <SignupFrame>
-    <H>로그인</H>
       <SignupArea>
+        <H>로그인</H>
         <LoginBox>
-          <Input type="text" placeholder="이메일" className="pw"/>
+          <Input type="text" placeholder="이메일" className="pw" />
           <Input type="password" placeholder="비밀번호" />
           <ButtonA>로그인</ButtonA>
         </LoginBox>
@@ -16,8 +17,11 @@ const Login = ({SetModalOpen}) => {
             <p>회원가입</p>
             <p>아이디 비밀번호 찾기</p>
           </LoginZone>
-          <p>또는</p>
-        <ButtonB>비회원 주문배송 조회</ButtonB>
+          <Or>
+            <Hr /> 또는
+            <HrRight />
+          </Or>
+          <ButtonB>비회원 주문배송 조회</ButtonB>
         </LoginBox>
       </SignupArea>
     </SignupFrame>
@@ -36,9 +40,8 @@ const SignupArea = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   width: 100%;
-  height: 100%;
 `;
 
 const LoginBox = styled.div`
@@ -46,19 +49,17 @@ const LoginBox = styled.div`
   width: 100%;
   flex-direction: column;
   display: flex;
-  .pw{
+  .pw {
     border-bottom: transparent;
   }
-  
 `;
 
 const LoginZone = styled.div`
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
   display: flex;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   width: 100%;
-
 `;
 
 const Input = styled.input`
@@ -66,27 +67,51 @@ const Input = styled.input`
   border: 0.1px solid #e5e7eb;
   padding: 12px 16px;
   &:focus {
-        outline: none;}
-
+    outline: none;
+  }
 `;
 
-const p = styled.div`
-  font-size: 14px;
-  font-weight: 100;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px;
-`;
 const H = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
   text-align: center;
   display: flex;
-  padding: 1.5rem;
-  margin: 0;
-
 `;
+
+const Or = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items:center;
+  position: relative;
+  height: 30px;
+  font-size: 0.7rem;
+`;
+
+const Hr = styled.div`
+  border-top: 1px solid #e5e7eb;
+  border-bottom: none;
+  position: absolute;
+  top: calc(50% - 0.5px);
+  left: 0;
+  width: 40%;
+`;
+
+const HrRight = styled.div`
+  border-bottom: 1px solid #e5e7eb;
+  position: absolute;
+  top: calc(50% - 0.5px);
+  right:0;
+  width: 40%;
+`;
+
 const ButtonA = styled.button`
   background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    background-color: #4f4f4f;
+    color: white;
+  }
   width: 100%;
   height: auto;
   border: 0.1rem solid #e5e7eb;
@@ -109,11 +134,5 @@ const ButtonB = styled.button`
   margin-top: 25px;
   cursor: pointer;
 `;
-
-// const H1 = styled.div`
-// display: flex;
-// align-items: center;
-//   font-size: 20px;
-// `;
 
 export default Login;
