@@ -15,7 +15,7 @@ const Home = () => {
   const [page, setPage] = React.useState(1);
   const dispatch = useDispatch();
   
-  const { productInfo, totalCount, loading } = useSelector(
+  const { productsInfo, totalCount, loading } = useSelector(
     (state) => state.itemsReducer
   );
 
@@ -29,7 +29,7 @@ const Home = () => {
       <HomeCategoryArea>
         <CategoryBar params={params} setCategoryId={setCategoryId}/>
       </HomeCategoryArea>
-      <ProductLists loading={loading} productInfo={productInfo} totalCount={totalCount} page={page} setPage={setPage}/>
+      <ProductLists loading={loading} productsInfo={productsInfo} totalCount={totalCount} page={page} setPage={setPage}/>
     </HomeFrame>
   );
 };

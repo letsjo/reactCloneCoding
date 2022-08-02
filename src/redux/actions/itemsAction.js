@@ -2,14 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { itemsSliceAction } from "../reducers/itemsReducer";
 import api from "../api";
 
-function loadDetailItem({id}) {
+function loadDetailItem(id) {
     return async (dispatch) => {
     
       const data = await api
       .get(`/product/detail?productId=${id}`)
       .then(function (response) {
-        console.log(response.data, "에러안남!!!!!");
-        dispatch(itemsAction.getDetailItem({data}));
+        console.log(response.data);
+        dispatch(itemsSliceAction.getProductDetail(response.data));
       })
       .catch(function (err) {
         console.log(err);
@@ -52,5 +52,5 @@ function loadItemsList({ page, categoryId }) {
 
 export const itemsAction = {
   loadItemsList,
-
+  loadDetailItem,
 };

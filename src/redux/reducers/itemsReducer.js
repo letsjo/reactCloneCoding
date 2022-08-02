@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-    productInfo: [],
+    productsInfo: [],
     totalCount: 0,
     loading: true,
-    item: [],
+    productDetail: {
+        productName : null,
+        imgUrl : null,
+        price: 0,
+        productDetail : null,
+    },
 };
 
 const itemsSlice = createSlice({
@@ -18,12 +23,12 @@ const itemsSlice = createSlice({
       state.loading = false;
     },
     getProductsList(state, action) {
-      state.productInfo = action.payload.productInfo;
+      state.productsInfo = action.payload.productInfo;
       state.totalCount = action.payload.totalCount;
       state.loading = false;
     },
-    getAllItems(state,action){
-        state.itemList = action.payload.data
+    getProductDetail(state,action){
+        state.productDetail = action.payload
     },
   },
 });

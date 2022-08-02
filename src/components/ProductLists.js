@@ -4,7 +4,7 @@ import Pagination from "../components/Pagination";
 import ItemCardInList from "../components/ItemCardInList";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const ProductLists = ({ loading, productInfo, totalCount, page, setPage }) => {
+const ProductLists = ({ loading, productsInfo, totalCount, page, setPage }) => {
     
   if (loading) {
     return (
@@ -16,8 +16,8 @@ const ProductLists = ({ loading, productInfo, totalCount, page, setPage }) => {
   return (
     <HomeArea>
       <HomeBox>
-        {productInfo &&
-          productInfo.map((itemList, index) => (
+        {productsInfo &&
+          productsInfo.map((itemList, index) => (
             <ItemCardInList key={index} itemList={itemList} />
           ))}
       </HomeBox>

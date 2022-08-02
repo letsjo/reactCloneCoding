@@ -6,7 +6,7 @@ import CommentCard from "./CommentCard";
 
 const CommentList = ({productId}) => {
   const dispatch = useDispatch();
-  const { productInfo, totalCount, loading } = useSelector(
+  const { productsInfo, totalCount, loading } = useSelector(
     (state) => state.itemsReducer
   );
 
