@@ -3,8 +3,9 @@ import styled, { css } from "styled-components";
 import { BsDot } from "react-icons/bs";
 import { userAction } from "../redux/actions/userAction";
 import { useDispatch } from "react-redux";
+import { modalSliceAction } from "../redux/reducers/modalReducer";
 
-const Signup = ({ SetModalOpen }) => {
+const Signup = () => {
   const dispatch = useDispatch();
 
   const [notificationText, setNotificationText] = React.useState();
@@ -28,7 +29,7 @@ const Signup = ({ SetModalOpen }) => {
       RefPasswordCheck.current.value = "";
       RefName.current.value = "";
       console.log(Signup_response);
-      SetModalOpen(false);
+      dispatch(modalSliceAction.modalClose());
       window.alert("환영합니다 :)");
     } catch (err) {
       window.alert(err.data.message);

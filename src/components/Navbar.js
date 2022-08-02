@@ -7,10 +7,9 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userSliceAction } from "../redux/reducers/userReducer";
+import { modalSliceAction } from "../redux/reducers/modalReducer";
 
 const Navbar = ({
-  SetModalOpen,
-  SetModalRequiredName,
   is_login,
   sessionStorageLogin,
 }) => {
@@ -18,13 +17,11 @@ const Navbar = ({
   const dispatch = useDispatch();
 
   const ModalLogin = () => {
-    SetModalOpen(true);
-    SetModalRequiredName("login");
+    dispatch(modalSliceAction.modalLoginOpen());
   };
 
   const ModalSignup = () => {
-    SetModalOpen(true);
-    SetModalRequiredName("signup");
+    dispatch(modalSliceAction.modalSignupOpen());
   };
 
   const GOLogout = () =>{

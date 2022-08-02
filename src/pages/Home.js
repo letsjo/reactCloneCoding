@@ -7,11 +7,11 @@ import { itemsAction } from "../redux/actions/itemsAction";
 import { itemsSliceAction } from "../redux/reducers/itemsReducer";
 import { useParams } from "react-router-dom";
 import ProductLists from "../components/ProductLists";
-const Home = () => {
+const Home = ({categoryId,setCategoryId}) => {
   const params = useParams();
   const tmp_params = params.category?.replace(/&/g,"%26").replace(/\+/g,"%2B");
   
-  const [categoryId, setCategoryId] = React.useState("ALL");
+  
   const [page, setPage] = React.useState(1);
   const dispatch = useDispatch();
   
@@ -29,7 +29,7 @@ const Home = () => {
       <HomeCategoryArea>
         <CategoryBar params={params} setCategoryId={setCategoryId}/>
       </HomeCategoryArea>
-      <ProductLists loading={loading} productsInfo={productsInfo} totalCount={totalCount} page={page} setPage={setPage}/>
+      <ProductLists loading={loading} categoryId={categoryId} productsInfo={productsInfo} totalCount={totalCount} page={page} setPage={setPage}/>
     </HomeFrame>
   );
 };

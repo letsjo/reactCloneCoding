@@ -6,7 +6,7 @@ function loadCommentsList({productId}) {
     await api
       .get(`/product/${productId}/comment`)
       .then(function (responseComments) {
-        console.log(responseComments);
+        dispatch(commentSliceAction.getCommentsList(responseComments.data.comments));
       })
       .catch(function(err){
         console.log(err);

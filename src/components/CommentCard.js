@@ -2,19 +2,45 @@ import React from "react";
 import styled from "styled-components";
 import CommentStar from "./CommentStar";
 
-const CommentCard = () => {
+const CommentCard = ({comment}) => {
+  
+  const timeSetting = (stringTime) => {
+    const objectDate = new Date(stringTime);
+    var timestampInput = objectDate.getTime();
+    var timestampNow = Date.now();
+    var gap_time = timestampNow - timestampInput;
+    if (gap_time < 3600000) {
+      return Math.ceil(gap_time / 60000) + " 분 전";
+    } else {
+      var date = new Date(timestampInput);
+      return (
+        date.getFullYear() +
+        "/" +
+        (date.getMonth() + 1) +
+        "/" +
+        date.getDate() +
+        " " +
+        date.getHours() +
+        ":" +
+        date.getMinutes() +
+        ":" +
+        date.getSeconds()
+      );
+    }
+  };
+
   return (
     <CommentCardFrame>
       <CommentLeftArea>
-        <CommentStar point="3.5" />
+        <CommentStar point={comment?.scope} />
         <CommentContent>
-          달력 사진 정말 너무예뻐요. 2022년이 벌써 행복해요!
+          {comment?.content}
         </CommentContent>
       </CommentLeftArea>
       <CommentRightArea>
         <CommentInfo>
-          <span>hyunoh.jo</span>
-          <span>2022-01-01 16:09</span>
+          <span>{comment.writer.username?.split('@')[0]}</span>
+          <span>{timeSetting(comment?.createdAt)}</span>
         </CommentInfo>
       </CommentRightArea>
     </CommentCardFrame>
