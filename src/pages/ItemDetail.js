@@ -20,9 +20,11 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
           <ItemCategoryPath to="/NOTES">NOTES</ItemCategoryPath>
         </ItemCategoryShow>
         <ItemDetailTopBox>
+    {/* 상품이미지 */}
           <ItemDetailTopLeftZone>
             <img src="https://cdn.imweb.me/thumbnail/20211201/8c5dffb2effd7.jpg" />
           </ItemDetailTopLeftZone>
+         {/* 상품텍스트 */}
           <ItemDetailTopRightZone>
             <ItemDetailTopRightSection>
               <header>

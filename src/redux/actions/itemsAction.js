@@ -1,24 +1,23 @@
 import { itemsSliceAction } from "../reducers/itemsReducer";
 import axios from "axios";
 
-// function LoadBoard() {
-//     return async (dispatch) => {
+function loadDetailItem({id}) {
+    return async (dispatch) => {
     
-//       const UploadBoardAX = await apiJson
-//       .get("posts?size=12&page=0")
-//       .then(function (response) {
-//         console.log(response.data, "에러안남!!!!!");
-//         dispatch(boardSliceAction.loadboard( 
-//           response.data
-//           ))
-  
-//       })
-//       .catch(function (error) {
-//         console.log("에러났음.", error);
-//       });
-//     };
-//   }
+      const data = await apiJson
+      .get(`/product/detail?productId=${id}`)
+      .then(function (response) {
+        console.log(response.data, "에러안남!!!!!");
+        dispatch(itemsAction.getDetailItem({data})
+          )})
+      .catch(error) {
+        console.log(error);
+      }
+    };
+}
+ 
 
 export const itemsAction = {
+    getItems,
 
 };
