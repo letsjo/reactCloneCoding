@@ -4,21 +4,24 @@ import styled from "styled-components";
 import { commentAction } from "../redux/actions/commentAction";
 import CommentCard from "./CommentCard";
 
-const CommentList = ({productId}) => {
+const CommentList = ({ productId }) => {
   const dispatch = useDispatch();
   const { productsInfo, totalCount, loading } = useSelector(
     (state) => state.itemsReducer
   );
 
-  useEffect(()=>{
-    dispatch(commentAction.loadCommentsList({productId}));
-  },[])
+  const comments = useSelector((state) => state.commentReducer.comments);
+  console.log(comments);
+
+  useEffect(() => {
+    dispatch(commentAction.loadCommentsList({ productId }));
+  }, []);
 
   return (
     <CommentListFrame>
       <button>구매평 작성</button>
       <CommentListArea>
-        <CommentCard />
+        {comments && comments.map((comment, index) => <CommentCard key={index} comment={comment}/>)}
       </CommentListArea>
       <CommentListBottomArea>
         <button>구매평 작성</button>

@@ -14,11 +14,11 @@ const ItemCardInList = ({itemList}) => {
       <CardImageArea onClick={(e) => GotoDetail(e)}>
         <img
           className="before"
-          src={itemList.imgUrl}
+          src={itemList.imageList[0]}
         />
         <img
           className="after"
-          src="https://cdn.imweb.me/thumbnail/20211201/468add0b8f3d2.jpg"
+          src={itemList.imageList[1]}
         />
       </CardImageArea>
       <CardItemInfoArea>

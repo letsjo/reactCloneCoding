@@ -4,6 +4,7 @@ import basketReducer from "./reducers/basketReducer";
 import itemsReducer from "./reducers/itemsReducer";
 import commentReducer from "./reducers/commentReducer";
 import userReducer from "./reducers/userReducer";
+import modalReducer from "./reducers/modalReducer";
 
 const store = configureStore({
     reducer:{
@@ -11,6 +12,7 @@ const store = configureStore({
         itemsReducer,
         commentReducer,
         userReducer,
+        modalReducer,
     }
 })
 

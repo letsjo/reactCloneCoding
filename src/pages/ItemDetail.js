@@ -8,9 +8,10 @@ import CommentList from "../components/CommentList";
 import { useDispatch, useSelector } from "react-redux";
 import { itemsAction } from "../redux/actions/itemsAction";
 
-const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
+const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const categoryIdString = categoryId?.replace(/%26/g, " & ");
 
   const params = useParams();
   const [count, setCount] = React.useState(1);
@@ -18,12 +19,11 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
   const [selectedBottomMenu, setSelectedBottomMenu] =
     React.useState("commentList");
 
-  const {productDetail} = useSelector((state)=> state.itemsReducer);
-  console.log(productDetail);
+  const { productDetail } = useSelector((state) => state.itemsReducer);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(itemsAction.loadDetailItem(params.id));
-  },[])
+  }, []);
 
   return (
     <ItemDetailFrame>
@@ -31,14 +31,14 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
         <ItemCategoryShow>
           <ItemCategoryPath to="/">HOME</ItemCategoryPath>
           {" > "}
-          <ItemCategoryPath to="/NOTES">NOTES</ItemCategoryPath>
+          <ItemCategoryPath to={"/" + categoryId}>
+            {categoryIdString}
+          </ItemCategoryPath>
         </ItemCategoryShow>
         <ItemDetailTopBox>
-    {/* 상품이미지 */}
           <ItemDetailTopLeftZone>
             <img src={productDetail.imgUrl} />
           </ItemDetailTopLeftZone>
-         {/* 상품텍스트 */}
           <ItemDetailTopRightZone>
             <ItemDetailTopRightSection>
               <header>
@@ -47,12 +47,12 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
               </header>
               <ItemDetailContextSection>
                 <ItemDetailContextView>
-                {productDetail.productDetail}
+                  {productDetail.productDetail}
                 </ItemDetailContextView>
               </ItemDetailContextSection>
               <ItemDetailOptionSection>
                 <ItemOptionInDetail
-                  eachPrice={eachPrice}
+                  eachPrice={productDetail.price}
                   countArr={{ count, setCount }}
                   totalPriceArr={{ totalPrice, setTotalPrice }}
                 />
@@ -92,7 +92,11 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
             </ItemDetailBottomMenu>
           </ItemDetailBottomMenuList>
         </ItemDetailBottomBox>
-        {selectedBottomMenu == "commentList" ? <CommentList productId={params?.id} /> : <></>}
+        {selectedBottomMenu == "commentList" ? (
+          <CommentList productId={params?.id} />
+        ) : (
+          <></>
+        )}
       </ItemDetailArea>
     </ItemDetailFrame>
   );
@@ -116,6 +120,7 @@ const ItemCategoryShow = styled.div`
     text-decoration: underline;
   }
 `;
+
 const ItemCategoryPath = styled(Link)`
   color: #b3b3b3;
   font-size: 12px;
