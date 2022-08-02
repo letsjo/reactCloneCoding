@@ -2,19 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const CategoryBar = () => {
+const CategoryBar = ({params, setCategoryId}) => {
   return (
     <CategoryFrame>
-      <CategoryText to="/">
+      <CategoryText to="/" onClick={(e)=>setCategoryId("ALL")}>
         <div>ALL</div>
       </CategoryText>
-      <CategoryText to="/NOTES">
+      <CategoryText to="/NOTES" onClick={(e)=>setCategoryId("NOTES")}>
         <div>NOTES</div>
       </CategoryText>
-      <CategoryText to="/PAPER&PRINT">
+      <CategoryText to="/PAPER&PRINT" onClick={(e)=>setCategoryId("PAPER%26PRINT")}>
         <div>PAPER & PRINT</div>
       </CategoryText>
-      <CategoryText to="/BAG&POUCH">
+      <CategoryText to="/BAG&POUCH" onClick={(e)=>setCategoryId("BAG%26POUCH")}>
         <div>BAG & POUCH</div>
       </CategoryText>
     </CategoryFrame>
@@ -35,6 +35,10 @@ const CategoryFrame = styled.div`
     min-width: none;
     gap: 0.5rem;
     flex-wrap: wrap;
+    font-size: 20px;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 14px;
   }
 `;
 

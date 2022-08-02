@@ -7,13 +7,17 @@ const OptionCounter = ({countArr}) => {
   };
 
   const countPlus = () => {
-    countArr.setCount(countArr.count + 1);
+    countArr.setCount(Number(countArr.count) + 1);
   };
+
+  const inputChange =(e) =>{
+    Number(e.target.value)>0?countArr.setCount(e.target.value):countArr.setCount(1);
+  }
 
   return (
     <CounterFrame>
       <CounterButton onClick={countMinus}>-</CounterButton>
-      <CounterInput type="number" value={countArr.count} />
+      <CounterInput type="number" onChange={(e)=>inputChange(e)} value={countArr.count} />
       <CounterButton onClick={countPlus}>+</CounterButton>
     </CounterFrame>
   );
@@ -25,6 +29,9 @@ const CounterFrame = styled.div`
   justify-content: center;
   height: 27px;
   max-width: 100px;
+  @media screen and (max-width: 500px) {
+    height: 20px;
+  }
 `;
 
 const CounterButton = styled.button`
@@ -34,6 +41,10 @@ const CounterButton = styled.button`
   height: 115%;
   background-color: white;
   cursor: pointer;
+  @media screen and (max-width: 500px) {
+      font-size: 10px;
+      width: 17px;
+  }
 `;
 
 const CounterInput = styled.input`
@@ -46,6 +57,10 @@ const CounterInput = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+  @media screen and (max-width: 500px) {
+      font-size: 10px;
+      width: 30px;
   }
 `;
 

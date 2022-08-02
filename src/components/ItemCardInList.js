@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
-const ItemCardInList = () => {
+const ItemCardInList = ({itemList}) => {
   const nevigate = useNavigate();
   const GotoDetail = (e) => {
     e.preventDefault();
-    nevigate("/detail/1");
+    nevigate(`/detail/${itemList.id}`);
   };
 
   return (
@@ -14,7 +14,7 @@ const ItemCardInList = () => {
       <CardImageArea onClick={(e) => GotoDetail(e)}>
         <img
           className="before"
-          src="https://cdn.imweb.me/thumbnail/20220513/1cbde571daa3b.jpg"
+          src={itemList.imgUrl}
         />
         <img
           className="after"
@@ -22,8 +22,8 @@ const ItemCardInList = () => {
         />
       </CardImageArea>
       <CardItemInfoArea>
-        <ItemTitleBox to="/detail/1">Season Notebook, Sweet Home (diary)</ItemTitleBox>
-        <p>9,000원</p>
+        <ItemTitleBox to={`/detail/${itemList.id}`}>{itemList.productName}</ItemTitleBox>
+        <p>{itemList.price.toLocaleString("ko-KR")}원</p>
       </CardItemInfoArea>
     </ItemCardFrame>
   );
