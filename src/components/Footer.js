@@ -28,7 +28,7 @@ const Footer = () => {
         <div>Business License 654-06-00338</div>
         <div>Communication Sales Business Report 2016-Busan Buckgu-0263</div>
         <div>Copyright ⓒ Beesket Studio</div>
-        <div>Hosting by I'mweb</div>
+        <div>Hosting by I'm web</div>
       </FooterRightFrame>
     </MainFooter>
   );
@@ -43,12 +43,24 @@ const MainFooter = styled.div`
   margin: 2rem 0 5rem 0;
   color: gray;
   font-size: 12px;
+  @media screen and (max-width: 990px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    font-size: 15px;
+  }
 `;
 
 const FooterLeftFrame = styled.div`
   margin-left: 1rem;
   display: flex;
   flex-direction: row;
+  @media screen and (max-width: 990px) {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    margin: 0;
+  }
 `;
 
 const FooterLeftMenuArea = styled.div`
@@ -64,16 +76,20 @@ const FooterLeftMenuArea = styled.div`
   a:hover {
     text-decoration: underline;
   }
+  @media screen and (max-width: 990px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 0 2rem 0;
+  }
 `;
 
 const FooterRightFrame = styled.div`
   margin-right: 5rem;
-`;
-
-const FooterSection = styled.div`
-  width: 100%;
-  border-width: 0;
-  border-style: solid;
+  @media screen and (max-width: 990px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0;
+  }
 `;
 
 export default Footer;

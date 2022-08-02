@@ -1,12 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ItemOptionInDetail from "../components/ItemOptionInDetail";
 import ItemTotalPriceInDetail from "../components/ItemTotalPriceInDetail";
 import NumberInCircle from "../components/NumberInCircle";
 import CommentList from "../components/CommentList";
 
 const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
+  const navigate = useNavigate();
+  const params = useParams();
   const [count, setCount] = React.useState(1);
   const [totalPrice, setTotalPrice] = React.useState(0);
   const [selectedBottomMenu, setSelectedBottomMenu] =
@@ -69,8 +71,8 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
 
               <ItemTotalPriceInDetail count={count} totalPrice={totalPrice} />
               <ItemDetailButtonSection>
-                <button>구매하기</button>
-                <button>장바구니</button>
+                <button onClick={(e) => navigate("/")}>구매하기</button>
+                <button onClick={(e) => navigate("/")}>장바구니</button>
               </ItemDetailButtonSection>
             </ItemDetailTopRightSection>
           </ItemDetailTopRightZone>
@@ -101,7 +103,7 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
             </ItemDetailBottomMenu>
           </ItemDetailBottomMenuList>
         </ItemDetailBottomBox>
-        {selectedBottomMenu=="commentList"?(<CommentList/>):(<></>)}
+        {selectedBottomMenu == "commentList" ? <CommentList productId={params?.id} /> : <></>}
       </ItemDetailArea>
     </ItemDetailFrame>
   );
@@ -187,6 +189,7 @@ const ItemDetailTopRightSection = styled.div`
     padding-bottom: 20px;
   }
   header div {
+    margin-bottom: 0.5rem;
     font-size: 20px;
     font-weight: normal;
   }
@@ -200,6 +203,12 @@ const ItemDetailTopRightSection = styled.div`
       text-align: center;
     }
   }
+  @media screen and (max-width: 500px) {
+    header div {
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
 `;
 
 const ItemDetailContextSection = styled.div`
@@ -211,6 +220,9 @@ const ItemDetailContextSection = styled.div`
 
 const ItemDetailContextView = styled.div`
   word-wrap: break-word;
+  @media screen and (max-width: 500px) {
+    font-size: 10px;
+  }
 `;
 
 const ItemDetailBottomBox = styled.div`
@@ -230,6 +242,12 @@ const ItemDetailButtonSection = styled.div`
   flex-direction: row;
   gap: 0.5rem;
   height: 45px;
+  @media screen and (max-width: 500px) {
+    button {
+      font-size: 10px;
+    }
+    height: 30px;
+  }
   button {
     width: 100%;
     cursor: pointer;
@@ -264,6 +282,10 @@ const ItemDetailBottomMenuList = styled.div`
   div {
     margin-left: 0.5rem;
   }
+  @media screen and (max-width: 500px) {
+    gap: 0.5rem;
+    font-size: 9px;
+  }
 `;
 
 const ItemDetailBottomMenu = styled.div`
@@ -274,7 +296,7 @@ const ItemDetailBottomMenu = styled.div`
       justify-content: center;
       cursor: pointer;
       color: ${selected ? "#4f4f4f" : "rgba(79,79,79,0.3)"};
-      &:hover{
+      &:hover {
         color: #4f4f4f;
       }
     `;

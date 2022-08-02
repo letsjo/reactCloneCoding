@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 
 const CommentStar = ({ point }) => {
   const starView = point * 20;
-  console.log(starView);
   return (
     <CommentStarFrame>
       <FillingStar starView={starView}>
