@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ItemOptionInDetail from "../components/ItemOptionInDetail";
 import ItemTotalPriceInDetail from "../components/ItemTotalPriceInDetail";
 import NumberInCircle from "../components/NumberInCircle";
@@ -8,6 +8,7 @@ import CommentList from "../components/CommentList";
 
 const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
   const navigate = useNavigate();
+  const params = useParams();
   const [count, setCount] = React.useState(1);
   const [totalPrice, setTotalPrice] = React.useState(0);
   const [selectedBottomMenu, setSelectedBottomMenu] =
@@ -102,7 +103,7 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
             </ItemDetailBottomMenu>
           </ItemDetailBottomMenuList>
         </ItemDetailBottomBox>
-        {selectedBottomMenu == "commentList" ? <CommentList /> : <></>}
+        {selectedBottomMenu == "commentList" ? <CommentList productId={params?.id} /> : <></>}
       </ItemDetailArea>
     </ItemDetailFrame>
   );

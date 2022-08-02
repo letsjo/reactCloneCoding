@@ -9,11 +9,21 @@ import Footer from "./components/Footer";
 import Basket from "./pages/Basket";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import api from "./redux/api";
 import { GrFormClose } from "react-icons/gr";
+import { userSliceAction } from "./redux/reducers/userReducer";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
   const [ModalOpen, SetModalOpen] = useState(false);
   const [ModalRequiredName, SetModalRequiredName] = useState("");
+  const [is_login, setIsLogin] = useState(false);
+  
+  let sessionStorageLogin = sessionStorage;
+  const is_authorization = sessionStorage.getItem("authorization")
+    ? true
+    : false;
 
   useEffect(() => {
     const escKeyModalClose = (e) => {
@@ -26,11 +36,27 @@ function App() {
     return () => window.removeEventListener("keydown", escKeyModalClose);
   }, []);
 
+  useEffect(() => {
+    if (is_authorization) {
+      api.defaults.headers.common["authorization"] =
+        "Bearer " + sessionStorage.getItem("authorization");
+      dispatch(
+        userSliceAction.recodeUser({
+          username: sessionStorage.getItem("email"),
+        })
+      );
+      setIsLogin(true);
+    }
+  }, []);
+
   return (
     <AppBody>
       <Navbar
         SetModalOpen={SetModalOpen}
         SetModalRequiredName={SetModalRequiredName}
+        is_login={is_login}
+        sessionStorageLogin={sessionStorageLogin}
+        setIsLogin={setIsLogin}
       />
       <MainBody>
         <Routes>
@@ -45,7 +71,7 @@ function App() {
             <ModalBody>
               {ModalRequiredName == "login" ? (
                 <ModalContent>
-                  <Login SetModalOpen={SetModalOpen} />
+                  <Login sessionStorageLogin={sessionStorageLogin} setIsLogin={setIsLogin} SetModalOpen={SetModalOpen} />
                   <CloseModal>
                     <GrFormClose
                       size={35}
@@ -110,7 +136,9 @@ const CloseModal = styled.div`
   top: 10px;
   right: 10px;
   padding: 5px 7px;
-  &:hover{color:"red"}
+  &:hover {
+    color: "red";
+  }
 `;
 ////// ModalContent 여기가 흰 부분 입니다.
 const ModalContent = styled.div`
@@ -128,7 +156,7 @@ const ModalContent = styled.div`
   @media screen and (max-width: 768px) {
     align-items: center;
     height: 100%;
-    width:100%;
+    width: 100%;
   }
 `;
 

@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { commentAction } from "../redux/actions/commentAction";
 import CommentCard from "./CommentCard";
 
-const CommentList = () => {
+const CommentList = ({productId}) => {
+  const dispatch = useDispatch();
+  const { productInfo, totalCount, loading } = useSelector(
+    (state) => state.itemsReducer
+  );
+
+  useEffect(()=>{
+    dispatch(commentAction.loadCommentsList({productId}));
+  },[])
+
   return (
     <CommentListFrame>
       <button>구매평 작성</button>
       <CommentListArea>
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
         <CommentCard />
       </CommentListArea>
       <CommentListBottomArea>

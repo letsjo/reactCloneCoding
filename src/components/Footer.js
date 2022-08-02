@@ -28,7 +28,7 @@ const Footer = () => {
         <div>Business License 654-06-00338</div>
         <div>Communication Sales Business Report 2016-Busan Buckgu-0263</div>
         <div>Copyright ⓒ Beesket Studio</div>
-        <div>Hosting by I'mweb</div>
+        <div>Hosting by I'm web</div>
       </FooterRightFrame>
     </MainFooter>
   );
@@ -57,7 +57,7 @@ const FooterLeftFrame = styled.div`
   display: flex;
   flex-direction: row;
   @media screen and (max-width: 990px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: flex-start;
     margin: 0;
   }
@@ -79,7 +79,7 @@ const FooterLeftMenuArea = styled.div`
   @media screen and (max-width: 990px) {
     flex-direction: column;
     justify-content: flex-start;
-    margin: 0;
+    margin: 0 0 2rem 0;
   }
 `;
 

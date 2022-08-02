@@ -1,15 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import api from "../redux/api";
 
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userSliceAction } from "../redux/reducers/userReducer";
 
 const Navbar = ({
   SetModalOpen,
   SetModalRequiredName,
+  is_login,
+  sessionStorageLogin,
 }) => {
   const navigete = useNavigate();
+  const dispatch = useDispatch();
 
   const ModalLogin = () => {
     SetModalOpen(true);
@@ -21,10 +27,20 @@ const Navbar = ({
     SetModalRequiredName("signup");
   };
 
+  const GOLogout = () =>{
+    api.defaults.headers.common["authorization"] = "";
+    api.defaults.headers.common["refresh_token"] = "";
+    sessionStorageLogin.clear();
+    dispatch(userSliceAction.logoutUser());
+    window.location.reload();    
+  }
+
   return (
     <NaviFrame>
       <Logo>
-        <a href="/"><h2>Beesket Studio</h2></a>
+        <a href="/">
+          <h2>Beesket Studio</h2>
+        </a>
       </Logo>
       <CenterMenu>
         <P1>ABOUT US</P1>
@@ -32,11 +48,17 @@ const Navbar = ({
         <P1>COMMUNITY</P1>
       </CenterMenu>
       <EndMenu>
-        <P2 onClick={(e)=>navigete("/basket")}>CART</P2>
+        <P2 onClick={(e) => navigete("/basket")}>CART</P2>
         <div>/</div>
-        <P2 onClick={ModalLogin}>LOGIN</P2>
-        <div>/</div>
-        <P2 onClick={ModalSignup}>JOIN</P2>
+        {is_login ? (
+          <P2 onClick={GOLogout}>LOGOUT</P2>
+        ) : (
+          <>
+            <P2 onClick={ModalLogin}>LOGIN</P2>
+            <div>/</div>
+            <P2 onClick={ModalSignup}>JOIN</P2>
+          </>
+        )}
         <div>/</div>
         <P2>
           <FontAwesomeIcon icon={faSearch} />
@@ -62,12 +84,12 @@ const Logo = styled.div`
   margin-left: 40px;
   width: 100%;
 
-  a{
+  a {
     text-decoration: none;
     color: black;
   }
 
-  a:hover{
+  a:hover {
     text-decoration: underline;
   }
 `;
