@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ItemOptionInDetail from "../components/ItemOptionInDetail";
 import ItemTotalPriceInDetail from "../components/ItemTotalPriceInDetail";
 import NumberInCircle from "../components/NumberInCircle";
 import CommentList from "../components/CommentList";
+import { useDispatch, useSelector } from "react-redux";
+import { itemsAction } from "../redux/actions/itemsAction";
 
 const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const params = useParams();
   const [count, setCount] = React.useState(1);
   const [totalPrice, setTotalPrice] = React.useState(0);
   const [selectedBottomMenu, setSelectedBottomMenu] =
     React.useState("commentList");
+
+  const {productDetail} = useSelector((state)=> state.itemsReducer);
+  console.log(productDetail);
+
+  useEffect(()=>{
+    dispatch(itemsAction.loadDetailItem(params.id));
+  },[])
+
   return (
     <ItemDetailFrame>
       <ItemDetailArea>
@@ -24,43 +36,18 @@ const ItemDetail = ({ eachPrice = 8900, commentList = [], QAList = [] }) => {
         <ItemDetailTopBox>
     {/* 상품이미지 */}
           <ItemDetailTopLeftZone>
-            <img src="https://cdn.imweb.me/thumbnail/20211201/8c5dffb2effd7.jpg" />
+            <img src={productDetail.imgUrl} />
           </ItemDetailTopLeftZone>
          {/* 상품텍스트 */}
           <ItemDetailTopRightZone>
             <ItemDetailTopRightSection>
               <header>
-                <div>Photo Memopad, 4type </div>
-                <div>{eachPrice.toLocaleString("ko-KR")}원 </div>
+                <div>{productDetail.productName}</div>
+                <div>{productDetail.price.toLocaleString("ko-KR")}원 </div>
               </header>
               <ItemDetailContextSection>
                 <ItemDetailContextView>
-                  <p>대단하지 않은 사소한 일들이 쌓여</p>
-                  <p>우리의 하루가 되고, 한달이 되고, 일년이 됩니다.</p>
-                  <p>우리의 인생이 됩니다.</p>
-                  <p>
-                    <br />
-                  </p>
-                  <p>사소하지만 결코 사소하지 않은 일들을 기록해보세요.</p>
-                  <p>기록은 기억보다 길고 강합니다.</p>
-                  <p>
-                    <br />
-                  </p>
-                  <p>
-                    <br />
-                  </p>
-                  <p>
-                    <br />
-                  </p>
-                  <p>
-                    <strong>[Detail Information]</strong>
-                  </p>
-                  <p>Size : 150x70mm</p>
-                  <p>Page : 90~100p</p>
-                  <p>Meterial : 100g paper</p>
-                  <p>
-                    <br />
-                  </p>
+                {productDetail.productDetail}
                 </ItemDetailContextView>
               </ItemDetailContextSection>
               <ItemDetailOptionSection>
