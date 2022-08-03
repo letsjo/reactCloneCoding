@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { commentSliceAction } from "../reducers/commentReducer";
 import api from "../api";
 
@@ -14,24 +15,22 @@ function loadCommentsList({productId}) {
   };
 }
 
-// function LoadBoard() {
-//     return async (dispatch) => {
-
-//       const UploadBoardAX = await apiJson
-//       .get("posts?size=12&page=0")
-//       .then(function (response) {
-//         console.log(response.data, "에러안남!!!!!");
-//         dispatch(boardSliceAction.loadboard(
-//           response.data
-//           ))
-
-//       })
-//       .catch(function (error) {
-//         console.log("에러났음.", error);
-//       });
-//     };
-//   }
+const postComment = createAsyncThunk(
+    "post/Comment",
+    async ( {productId, postCommentData}, {rejectWithValue}) =>{
+        console.log(productId,postCommentData);
+        try {
+            const response = await api.post(`/product/${productId}/comment`,postCommentData);
+            console.log(response);
+            return response;
+        } catch (err){
+            console.log(err);
+            return rejectWithValue(err);
+        }
+    }
+);
 
 export const commentAction = {
     loadCommentsList,
+    postComment,
 };

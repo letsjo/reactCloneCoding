@@ -6,7 +6,7 @@ let initialState = {
     loading: true,
     productDetail: {
         productName : null,
-        imgUrl : null,
+        imgUrl : [],
         price: 0,
         productDetail : null,
     },
@@ -29,6 +29,7 @@ const itemsSlice = createSlice({
     },
     getProductDetail(state,action){
         state.productDetail = action.payload
+        state.loading = false;
     },
   },
 });

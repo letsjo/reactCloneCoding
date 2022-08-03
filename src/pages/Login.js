@@ -44,12 +44,11 @@ const Login = ({ setIsLogin, sessionStorageLogin }) => {
       ).unwrap();
       console.log(responseLogin);
       api.defaults.headers.common["authorization"] =
-        "Bearer " + responseLogin.headers.authorization;
+        responseLogin.headers.authorization;
 
-      
       sessionStorageLogin.setItem(
         "authorization",
-        "Bearer " + responseLogin.headers.authorization
+        responseLogin.headers.authorization
       );
 
       sessionStorageLogin.setItem("email", userDataForLogin.email);

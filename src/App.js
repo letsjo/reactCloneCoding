@@ -12,20 +12,20 @@ import { userSliceAction } from "./redux/reducers/userReducer";
 import { useDispatch } from "react-redux";
 import ModalComponents from "./components/ModalComponents";
 
+export let sessionStorageLogin = sessionStorage;
+export const is_authorization = sessionStorage.getItem("authorization")
+    ? true
+    : false;
+
 function App() {
   const dispatch = useDispatch();
   const [is_login, setIsLogin] = useState(false);
   const [categoryId, setCategoryId] = React.useState("ALL");
   
-  let sessionStorageLogin = sessionStorage;
-  const is_authorization = sessionStorage.getItem("authorization")
-    ? true
-    : false;
-
   useEffect(() => {
     if (is_authorization) {
       api.defaults.headers.common["authorization"] =
-        "Bearer " + sessionStorage.getItem("authorization");
+        sessionStorage.getItem("authorization");
       dispatch(
         userSliceAction.recodeUser({
           username: sessionStorage.getItem("email"),
@@ -46,8 +46,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home categoryId={categoryId} setCategoryId={setCategoryId}/>} />
           <Route path="/:category" element={<Home categoryId={categoryId} setCategoryId={setCategoryId}/>} />
-          <Route path="/detail/:id" element={<ItemDetail categoryId={categoryId} />} />
-          <Route path="/basket" element={<Basket />} />
+          <Route path="/detail/:id" element={<ItemDetail categoryId={categoryId} is_login={is_login}/>} />
+          <Route path="/basket" element={<Basket is_login={is_login}/>} />
         </Routes>
         <ModalComponents sessionStorageLogin={sessionStorageLogin} setIsLogin={setIsLogin}/>
         <Footer />
