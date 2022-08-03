@@ -13,7 +13,7 @@ const Navbar = ({
   is_login,
   sessionStorageLogin,
 }) => {
-  const navigete = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const ModalLogin = () => {
@@ -45,7 +45,7 @@ const Navbar = ({
         <P1>COMMUNITY</P1>
       </CenterMenu>
       <EndMenu>
-        <P2 onClick={(e) => navigete("/basket")}>CART</P2>
+        <P2 onClick={(e) => navigate("/basket")}>CART</P2>
         <div>/</div>
         {is_login ? (
           <P2 onClick={GOLogout}>LOGOUT</P2>
