@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CommentStar from "./CommentStar";
 
-const CommentCard = ({comment}) => {
-  
+const CommentCard = ({ comment }) => {
   const timeSetting = (stringTime) => {
     const objectDate = new Date(stringTime);
     var timestampInput = objectDate.getTime();
@@ -16,15 +15,13 @@ const CommentCard = ({comment}) => {
       return (
         date.getFullYear() +
         "/" +
-        (date.getMonth() + 1) +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
         "/" +
-        date.getDate() +
+        ("0" + date.getDate()).slice(-2) +
         " " +
-        date.getHours() +
+        ("0" + date.getHours()).slice(-2)  +
         ":" +
-        date.getMinutes() +
-        ":" +
-        date.getSeconds()
+        ("0" + date.getMinutes()).slice(-2) 
       );
     }
   };
@@ -34,12 +31,12 @@ const CommentCard = ({comment}) => {
       <CommentLeftArea>
         <CommentStar point={comment?.scope} />
         <CommentContent>
-          {comment?.content}
+          <pre>{comment?.content}</pre>
         </CommentContent>
       </CommentLeftArea>
       <CommentRightArea>
         <CommentInfo>
-          <span>{comment.writer.username?.split('@')[0]}</span>
+          <span>{comment.writer.username?.split("@")[0]}</span>
           <span>{timeSetting(comment?.createdAt)}</span>
         </CommentInfo>
       </CommentRightArea>
@@ -72,6 +69,9 @@ const CommentRightArea = styled.div`
 
 const CommentContent = styled.div`
   font-size: 14px;
+  pre{
+    margin: 0.5rem 0 0 0 ;
+  }
   @media screen and (max-width: 990px) {
     font-size: 9px;
   }

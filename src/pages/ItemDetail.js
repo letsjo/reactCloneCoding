@@ -7,8 +7,11 @@ import NumberInCircle from "../components/NumberInCircle";
 import CommentList from "../components/CommentList";
 import { useDispatch, useSelector } from "react-redux";
 import { itemsAction } from "../redux/actions/itemsAction";
+import { modalSliceAction } from "../redux/reducers/modalReducer";
+import { basketAction } from "../redux/actions/basketAction";
+import { basketSliceAction } from "../redux/reducers/basketReducer";
 
-const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
+const ItemDetail = ({ categoryId, is_login, QAList = [] }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const categoryIdString = categoryId?.replace(/%26/g, " & ");
@@ -20,6 +23,7 @@ const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
     React.useState("commentList");
 
   const { productDetail } = useSelector((state) => state.itemsReducer);
+  const comments = useSelector((state) => state.commentReducer.comments);
 
   useEffect(() => {
     dispatch(itemsAction.loadDetailItem(params.id));
@@ -37,7 +41,7 @@ const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
         </ItemCategoryShow>
         <ItemDetailTopBox>
           <ItemDetailTopLeftZone>
-            <img src={productDetail.imgUrl} />
+            <img src={productDetail.imgUrl[1]} />
           </ItemDetailTopLeftZone>
           <ItemDetailTopRightZone>
             <ItemDetailTopRightSection>
@@ -61,7 +65,22 @@ const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
               <ItemTotalPriceInDetail count={count} totalPrice={totalPrice} />
               <ItemDetailButtonSection>
                 <button onClick={(e) => navigate("/")}>구매하기</button>
-                <button onClick={(e) => navigate("/")}>장바구니</button>
+                <button
+                  onClick={async (e) => {
+                    try {
+                      const responseCart = await dispatch(
+                        basketAction.addCart({ productId: params.id, count })
+                      ).unwrap();
+                      console.log(responseCart)
+                      // dispatch(basketSliceAction.addCartList()); 비회원 장바구니
+                      dispatch(modalSliceAction.modalCartAlertOpen());
+                    } catch (err) {
+                      console.log(err);
+                    }
+                  }}
+                >
+                  장바구니
+                </button>
               </ItemDetailButtonSection>
             </ItemDetailTopRightSection>
           </ItemDetailTopRightZone>
@@ -80,7 +99,7 @@ const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
               selected={selectedBottomMenu == "commentList" ? true : false}
             >
               구매평
-              <NumberInCircle number={commentList.length} />
+              <NumberInCircle number={comments?.length} />
             </ItemDetailBottomMenu>
             /
             <ItemDetailBottomMenu
@@ -93,7 +112,7 @@ const ItemDetail = ({ categoryId, commentList = [], QAList = [] }) => {
           </ItemDetailBottomMenuList>
         </ItemDetailBottomBox>
         {selectedBottomMenu == "commentList" ? (
-          <CommentList productId={params?.id} />
+          <CommentList is_login={is_login} productId={params?.id} />
         ) : (
           <></>
         )}
@@ -207,13 +226,14 @@ const ItemDetailTopRightSection = styled.div`
 
 const ItemDetailContextSection = styled.div`
   margin-bottom: 24px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
   color: rgba(79, 79, 79, 0.7);
 `;
 
-const ItemDetailContextView = styled.div`
+const ItemDetailContextView = styled.pre`
   word-wrap: break-word;
+  white-space: pre-line;
   @media screen and (max-width: 500px) {
     font-size: 10px;
   }

@@ -3,9 +3,9 @@ import { itemsSliceAction } from "../reducers/itemsReducer";
 import api from "../api";
 
 function loadDetailItem(id) {
-    return async (dispatch) => {
-    
-      const data = await api
+  return async (dispatch) => {
+    dispatch(itemsSliceAction.request());
+    const data = await api
       .get(`/product/detail?productId=${id}`)
       .then(function (response) {
         console.log(response.data);
@@ -13,10 +13,11 @@ function loadDetailItem(id) {
       })
       .catch(function (err) {
         console.log(err);
+        dispatch(itemsSliceAction.requestFail());
       });
-    };
+  };
 }
- 
+
 function loadItemsList({ page, categoryId }) {
   return async (dispatch) => {
     dispatch(itemsSliceAction.request());

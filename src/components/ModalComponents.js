@@ -5,11 +5,16 @@ import Login from "../pages/Login";
 import { GrFormClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { modalSliceAction } from "../redux/reducers/modalReducer";
+import CommentPost from "../pages/CommentPost";
+import { useNavigate } from "react-router-dom";
 
 const ModalComponents = ({ sessionStorageLogin, setIsLogin }) => {
   const dispatch = useDispatch();
+  const navigator = useNavigate();
 
-  const { ModalOpen, ModalRequiredName } = useSelector((state)=> state.modalReducer);
+  const { ModalOpen, ModalRequiredName } = useSelector(
+    (state) => state.modalReducer
+  );
 
   useEffect(() => {
     const escKeyModalClose = (e) => {
@@ -55,6 +60,41 @@ const ModalComponents = ({ sessionStorageLogin, setIsLogin }) => {
                   />
                 </CloseModal>
               </ModalContent>
+            ) : ModalRequiredName == "comment" ? (
+              <ModalComment>
+                <CommentPost />
+                <CloseModal>
+                  <GrFormClose
+                    size={35}
+                    onClick={() => {
+                      dispatch(modalSliceAction.modalClose());
+                    }}
+                  />
+                </CloseModal>
+              </ModalComment>
+            ) : ModalRequiredName == "alertcart" ? (
+              <ModalAlertCart>
+                <ModalAlertFrame>
+                  선택한 상품을 장바구니에 담았습니다.
+                </ModalAlertFrame>
+                <ModalAlertButton>
+                  <button
+                    onClick={() => {
+                      dispatch(modalSliceAction.modalClose());
+                    }}
+                  >
+                    계속쇼핑
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch(modalSliceAction.modalClose());
+                      navigator("/basket");
+                    }}
+                  >
+                    장바구니
+                  </button>
+                </ModalAlertButton>
+              </ModalAlertCart>
             ) : (
               <></>
             )}
@@ -118,17 +158,64 @@ const ModalContent = styled.div`
   }
 `;
 
-// const MainBody = styled.div`
-// display: flex;
-// flex-direction: column;
-// align-items: flex-start;
-// margin-top: 100px;
-// width: 100%;
-// height: auto;
-// min-height: 100%;
-// @media screen and (max-width: 990px) {
-// align-items: center;
-// }
+const ModalComment = styled.div`
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 34px 24px 24px;
+  border-radius: 5px;
+  min-width: 320px;
+  min-height: 350px;
+  width: 40%;
+
+  @media screen and (max-width: 768px) {
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+`;
+
+const ModalAlertCart = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 5px;
+  min-width: 290px;
+  min-height: 175px;
+  width: 20%;
+`;
+
+const ModalAlertFrame = styled.div`
+  width: 100%;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalAlertButton = styled.div`
+  button {
+    width: 50%;
+    height: 50px;
+    background-color: white;
+    border: 1px solid rgba(79, 79, 79, 0.2);
+    cursor: pointer;
+  }
+  button:nth-child(1) {
+    border-radius: 0 0 0 5px;
+  }
+  button:nth-child(2) {
+    border-radius: 0 0 5px 0;
+  }
+  button:hover {
+    border: 1px solid rgba(79, 79, 79, 0.5);
+  }
+`;
 
 // 모달 컴포넌트 종료
 

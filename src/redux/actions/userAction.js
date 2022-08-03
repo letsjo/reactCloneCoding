@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { userSliceAction } from "../reducers/userReducer";
 import api from "../api";
+import {sessionStorageLogin} from "../../App";
 
 const userSignup = createAsyncThunk(
   "user/Signup",
@@ -27,6 +28,15 @@ const userLogin = createAsyncThunk(
     }
   }
 );
+
+function userLogout(){
+  return async (dispatch) =>{
+    api.defaults.headers.common["authorization"] = "";
+    sessionStorageLogin.clear();
+    dispatch(userSliceAction.logoutUser());
+    window.location.reload();
+  };
+}
 
 // const userLogout = createAsyncThunk(
 //     "user/Logout",
@@ -83,4 +93,5 @@ const userLogin = createAsyncThunk(
 export const userAction = {
   userSignup,
   userLogin,
+  userLogout,
 };
