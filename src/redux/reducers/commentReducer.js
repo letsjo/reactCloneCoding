@@ -12,6 +12,7 @@ let initialState = {
       },
     },
   ],
+  starScore:0,
 };
 
 const commentSlice = createSlice({
@@ -20,7 +21,10 @@ const commentSlice = createSlice({
   reducers: {
     getCommentsList(state,action){
         state.comments = action.payload;
-    }
+    },
+    getStarScore(state,action){
+        state.starScore = action.payload;
+    },
   },
 });
 

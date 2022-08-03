@@ -1,10 +1,32 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import BasketListForm from "../components/BasketListForm";
 import BasketTotalPrice from "../components/BasketTotalPrice";
 import NumberInCircle from "../components/NumberInCircle";
+import { basketAction } from "../redux/actions/basketAction";
+import { basketSliceAction } from "../redux/reducers/basketReducer";
 
-const Basket = () => {
+const Basket = ({is_login}) => {
+
+  const dispatch = useDispatch();
+
+
+  const cartTotalList = useSelector((state)=>state.basketReducer.cartList)
+  console.log(cartTotalList);
+  useEffect(() => {
+    getCartInfo();
+  }, []);
+
+  const getCartInfo = async () => {
+    try {
+      const resCartList = await dispatch(basketAction.getCart()).unwrap();
+      await dispatch(basketSliceAction.getCartList(resCartList));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <BasketFrame>
       <BasketArea>
@@ -17,8 +39,8 @@ const Basket = () => {
             scale="20px"
           />
         </BasketTitle>
-        <BasketListForm />
-        <BasketTotalPrice />
+        <BasketListForm cartTotalList={cartTotalList}/>
+        <BasketTotalPrice cartTotalList={cartTotalList}/>
         <BasketButton>
           <button>주문하기</button>
           <a href="/">계속 쇼핑하기</a>
