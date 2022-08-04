@@ -30,7 +30,23 @@ const postComment = createAsyncThunk(
     }
 );
 
+const delComment = createAsyncThunk(
+  "del/Comment",
+  async ( {commentId}, {rejectWithValue}) =>{
+      console.log(commentId);
+      try {
+          const response = await api.delete(`/product/${commentId}/comment`);
+          console.log(response);
+          return response;
+      } catch (err){
+          console.log(err);
+          return rejectWithValue(err);
+      }
+  }
+);
+
 export const commentAction = {
     loadCommentsList,
     postComment,
+    delComment,
 };

@@ -1,46 +1,50 @@
-import React, {useEffect} from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import BasketListForm from "../components/BasketListForm";
 import BasketTotalPrice from "../components/BasketTotalPrice";
 import NumberInCircle from "../components/NumberInCircle";
 import { basketAction } from "../redux/actions/basketAction";
 import { basketSliceAction } from "../redux/reducers/basketReducer";
+import { modalSliceAction } from "../redux/reducers/modalReducer";
 
-const Basket = ({is_login}) => {
-
+const Basket = () => {
+  const navigator = useNavigate();
   const dispatch = useDispatch();
 
+  const cartTotalList = useSelector((state) => state.basketReducer.cartList);
+  const { is_login } = useSelector((state) => state.userReducer);
 
-  const cartTotalList = useSelector((state)=>state.basketReducer.cartList)
-  console.log(cartTotalList);
   useEffect(() => {
     getCartInfo();
   }, []);
 
   const getCartInfo = async () => {
     try {
-      const resCartList = await dispatch(basketAction.getCart()).unwrap();
+      const resCartList = await dispatch(basketAction.getCart(true)).unwrap();
       await dispatch(basketSliceAction.getCartList(resCartList));
     } catch (e) {
-      console.log(e);
+      navigator("/");      
+      window.alert(e.data.message);
+      dispatch(modalSliceAction.modalLoginOpen());
     }
   };
-
+if(is_login)
   return (
     <BasketFrame>
       <BasketArea>
         <BasketTitle>
           <div>장바구니</div>
           <NumberInCircle
-            number={"1"}
+            number={cartTotalList.buyProductList.length}
             background="#4f4f4f"
             color="white"
             scale="20px"
           />
         </BasketTitle>
-        <BasketListForm cartTotalList={cartTotalList}/>
-        <BasketTotalPrice cartTotalList={cartTotalList}/>
+        <BasketListForm cartTotalList={cartTotalList} />
+        <BasketTotalPrice cartTotalList={cartTotalList} />
         <BasketButton>
           <button>주문하기</button>
           <a href="/">계속 쇼핑하기</a>
@@ -91,7 +95,7 @@ const BasketButton = styled.div`
     color: #fff;
     cursor: pointer;
   }
-  a{
+  a {
     font-size: 13px;
     margin-top: 1rem;
   }
