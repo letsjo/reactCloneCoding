@@ -9,9 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { itemsAction } from "../redux/actions/itemsAction";
 import { modalSliceAction } from "../redux/reducers/modalReducer";
 import { basketAction } from "../redux/actions/basketAction";
-import { basketSliceAction } from "../redux/reducers/basketReducer";
 
-const ItemDetail = ({ categoryId, is_login, QAList = [] }) => {
+const ItemDetail = ({ categoryId, QAList = [] }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const categoryIdString = categoryId?.replace(/%26/g, " & ");
@@ -71,11 +70,12 @@ const ItemDetail = ({ categoryId, is_login, QAList = [] }) => {
                       const responseCart = await dispatch(
                         basketAction.addCart({ productId: params.id, count })
                       ).unwrap();
-                      console.log(responseCart)
+                      console.log(responseCart);
                       // dispatch(basketSliceAction.addCartList()); 비회원 장바구니
                       dispatch(modalSliceAction.modalCartAlertOpen());
                     } catch (err) {
-                      console.log(err);
+                      window.alert(err.data.message);
+                      dispatch(modalSliceAction.modalLoginOpen());
                     }
                   }}
                 >
@@ -112,7 +112,7 @@ const ItemDetail = ({ categoryId, is_login, QAList = [] }) => {
           </ItemDetailBottomMenuList>
         </ItemDetailBottomBox>
         {selectedBottomMenu == "commentList" ? (
-          <CommentList is_login={is_login} productId={params?.id} />
+          <CommentList productId={params?.id} />
         ) : (
           <></>
         )}

@@ -5,10 +5,10 @@ import { commentAction } from "../redux/actions/commentAction";
 import { modalSliceAction } from "../redux/reducers/modalReducer";
 import CommentCard from "./CommentCard";
 
-const CommentList = ({ productId, is_login }) => {
+const CommentList = ({ productId }) => {
   const dispatch = useDispatch();
-  const { productsInfo, totalCount, loading } = useSelector(
-    (state) => state.itemsReducer
+  const { is_login } = useSelector(
+    (state) => state.userReducer
   );
 
   const comments = useSelector((state) => state.commentReducer.comments);

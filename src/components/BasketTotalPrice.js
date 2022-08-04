@@ -7,7 +7,7 @@ const BasketTotalPrice = ({ cartTotalList }) => {
   cartTotalList.buyProductList.map((productInfo) => {
       SumItemPrice+=productInfo.count*productInfo.product.price
   });
-  const SumTotalPrice = SumItemPrice + cartTotalList.deliveryFee;
+  const SumTotalPrice = SumItemPrice + (cartTotalList.buyProductList[0]?cartTotalList.deliveryFee:0);
 
   return (
     <BasketTotalFrame>
@@ -19,7 +19,7 @@ const BasketTotalPrice = ({ cartTotalList }) => {
         </TotalText>
         <div>+</div>
         <TotalText>
-          <div>{cartTotalList.deliveryFee}</div>
+          <div>{cartTotalList.buyProductList[0]?cartTotalList.deliveryFee.toLocaleString("ko-KR")+"원":0}</div>
           <div>배송비</div>
         </TotalText>
         <div>=</div>
