@@ -7,7 +7,7 @@ import api from "../redux/api";
 import { modalSliceAction } from "../redux/reducers/modalReducer";
 import { userSliceAction } from "../redux/reducers/userReducer";
 
-const Login = ({ setIsLogin, sessionStorageLogin }) => {
+const Login = ({ sessionStorageLogin }) => {
   const dispatch = useDispatch();
   const [notificationText, setNotificationText] = React.useState("");
   const [userData, setUserData] = React.useState({});
@@ -60,8 +60,8 @@ const Login = ({ setIsLogin, sessionStorageLogin }) => {
       );
       RefEmail.current.value = "";
       Refpassword.current.value = "";
-      setIsLogin(true);
       dispatch(modalSliceAction.modalClose());
+      window.location.reload();
     } catch (err) {
       window.alert(err);
     }
@@ -108,7 +108,10 @@ const Login = ({ setIsLogin, sessionStorageLogin }) => {
         </LoginBox>
         <LoginBox>
           <LoginZone>
-            <p>회원가입</p>
+            <p onClick={(e)=>{
+              e.preventDefault();
+              dispatch(modalSliceAction.modalSignupOpen());
+              }}>회원가입</p>
             <p>아이디 비밀번호 찾기</p>
           </LoginZone>
           <Or>
@@ -154,6 +157,9 @@ const LoginZone = styled.div`
   display: flex;
   font-size: 0.7rem;
   width: 100%;
+  p{
+    cursor: pointer;
+  }
 `;
 
 const Input = styled.input`

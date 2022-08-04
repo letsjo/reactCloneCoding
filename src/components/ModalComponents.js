@@ -8,7 +8,7 @@ import { modalSliceAction } from "../redux/reducers/modalReducer";
 import CommentPost from "../pages/CommentPost";
 import { useNavigate } from "react-router-dom";
 
-const ModalComponents = ({ sessionStorageLogin, setIsLogin }) => {
+const ModalComponents = ({ sessionStorageLogin }) => {
   const dispatch = useDispatch();
   const navigator = useNavigate();
 
@@ -37,7 +37,6 @@ const ModalComponents = ({ sessionStorageLogin, setIsLogin }) => {
               <ModalContent>
                 <Login
                   sessionStorageLogin={sessionStorageLogin}
-                  setIsLogin={setIsLogin}
                 />
                 <CloseModal>
                   <GrFormClose

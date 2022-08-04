@@ -4,7 +4,20 @@ import { useDispatch } from "react-redux";
 import BasketItem from "./BasketItem";
 import { basketAction } from "../redux/actions/basketAction";
 
-const BasketListForm = ({cartTotalList}) => {
+const BasketListForm = ({ cartTotalList }) => {
+  const dispatch = useDispatch();
+
+  const delAllButton = (e, basketId) => {
+    e.preventDefault();
+    try {
+      const responseCart = dispatch(basketAction.delAllCart(basketId));
+      console.log(responseCart);
+      window.location.reload();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <BasketListFrame>
       <BasketContentTop>
@@ -26,12 +39,18 @@ const BasketListForm = ({cartTotalList}) => {
               <BasketItem key={index} buyProduct={buyProduct} />
             ))}
         </BasketContentBottomLeft>
-        <DeliveryFeeZone>무료</DeliveryFeeZone>
+        <DeliveryFeeZone>
+          {cartTotalList.buyProductList[0]
+            ? cartTotalList.deliveryFee.toLocaleString("ko-KR") + "원"
+            : ""}
+        </DeliveryFeeZone>
       </BasketContentBottom>
       <BasketUnderArea>
         <BasketLeftBox>
           <button>선택상품 삭제</button>
-          <button>품절상품 삭제</button>
+          <button onClick={(e) => delAllButton(e, cartTotalList?.basketId)}>
+            전체상품 삭제
+          </button>
         </BasketLeftBox>
         <BasketRightBox>
           <div>결제 시 추가 할인 적용에 따라 배송비가 변경될 수 있습니다.</div>

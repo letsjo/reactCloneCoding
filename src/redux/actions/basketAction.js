@@ -12,22 +12,35 @@ const addCart = createAsyncThunk(
       });
       return responsebasket;
     } catch (err) {
-      console.log(err);
       return rejectWithValue(err.response);
     }
   }
 );
 
-const getCart = createAsyncThunk("cart/get", async (thunkAPI) => {
+const getCart = createAsyncThunk("cart/get", async (none,{rejectWithValue}) => {
   try {
     const response = await api.get("/product/basketList");
     console.log(response);
     return response.data;
   } catch (err) {
     console.log(err);
-    return thunkAPI.rejectWithValue(err.response);
+    return rejectWithValue(err.response);
   }
 });
+
+const delAllCart = createAsyncThunk(
+    "cart/DelAll",
+    async ( basketId, { rejectWithValue }) => {
+      try {
+        const responsebasket = await api.delete("/product/basketList");
+        console.log(responsebasket);
+        return responsebasket;
+      } catch (err) {
+        console.log(err);
+        return rejectWithValue(err.response);
+      }
+    }
+  );
 
 // function LoadBoard() {
 //     return async (dispatch) => {
@@ -50,4 +63,5 @@ const getCart = createAsyncThunk("cart/get", async (thunkAPI) => {
 export const basketAction = {
   addCart,
   getCart,
+  delAllCart,
 };

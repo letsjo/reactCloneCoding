@@ -2,17 +2,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import api from "../redux/api";
 
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSliceAction } from "../redux/reducers/userReducer";
 import { modalSliceAction } from "../redux/reducers/modalReducer";
 import { is_authorization } from "../App";
+import { BsList } from "react-icons/bs";
 
-const Navbar = ({ is_login, setIsLogin, sessionStorageLogin }) => {
+const Navbar = ({ sessionStorageLogin }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { is_login } = useSelector((state) => state.userReducer);
 
   const ModalLogin = () => {
     dispatch(modalSliceAction.modalLoginOpen());
@@ -24,7 +27,6 @@ const Navbar = ({ is_login, setIsLogin, sessionStorageLogin }) => {
 
   const GOLogout = () => {
     api.defaults.headers.common["authorization"] = "";
-    api.defaults.headers.common["refresh_token"] = "";
     sessionStorageLogin.clear();
     dispatch(userSliceAction.logoutUser());
     window.location.reload();
@@ -39,12 +41,15 @@ const Navbar = ({ is_login, setIsLogin, sessionStorageLogin }) => {
           username: sessionStorage.getItem("email"),
         })
       );
-      setIsLogin(true);
+      dispatch(userSliceAction.loginUser());
     }
   }, []);
 
   return (
     <NaviFrame>
+      {/* <MobileList>
+        <BsList size={30} />
+      </MobileList> */}
       <Logo>
         <a href="/">
           <h2>Beesket Studio</h2>
@@ -82,6 +87,13 @@ const NaviFrame = styled.div`
   justify-content: space-between;
   margin: 15px 0 0 0;
   width: 100%;
+`;
+
+const MobileList = styled.div`
+  display: none;
+  @media screen and (max-width: 990px) {
+    display: block;
+  }
 `;
 
 const Logo = styled.div`

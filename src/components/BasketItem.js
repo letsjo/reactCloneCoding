@@ -1,15 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const BasketItem = ({ buyProduct }) => {
+  const navigator = useNavigate();
+
+  const goToDetail = (e, id) => {
+    e.preventDefault();
+    navigator(`/detail/${id}`);
+  };
+
   return (
     <BasketItemArea>
       <div>
         <div>
           <input type="checkbox" />
-          <img src={buyProduct.imgUrl} />
-          {buyProduct?.product.productName}
+          <img
+            src={buyProduct.imgUrl}
+            onClick={(e) => goToDetail(e, buyProduct?.product.id)}
+          />
+          <div>
+            <div onClick={(e) => goToDetail(e, buyProduct?.product.id)}>
+              {buyProduct?.product.productName}
+            </div>
+          </div>
         </div>
         <IoIosClose size={30} />
       </div>
@@ -50,6 +65,9 @@ const BasketItemArea = styled.div`
       justify-content: flex-start;
       align-items: flex-start;
       border: none;
+      div {
+        cursor: pointer;
+      }
       svg {
         margin-right: 0.5rem;
       }
@@ -59,6 +77,7 @@ const BasketItemArea = styled.div`
       height: 80px;
       border: 1px solid #e5e7eb;
       margin: 0 1rem 0 1rem;
+      cursor: pointer;
     }
     input {
       margin: 0.2rem 0.5rem 0 0.5rem;
